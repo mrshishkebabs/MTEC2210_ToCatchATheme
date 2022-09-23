@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-
-    public GameObject itemPrefab;
+    public int score = 0;
+    public GameObject [] itemPrefab;
     public Transform leftTran;
     public Transform rightTran;
+
+    public TextMeshPro scoreText;
+
     void Start()
     {
 
@@ -17,16 +21,26 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        scoreText.text = "Score: " + score.ToString();
     }
 
 
     public void SpawnItem()
     {
-    float rndXValue = Random.Range(leftTran.position.x, rightTran.position.x);
+        float rndXValue = Random.Range(leftTran.position.x, rightTran.position.x);
 
-    Vector2 spawnPos = new Vector2(rndXValue, leftTran.position.y);
+        Vector2 spawnPos = new Vector2(rndXValue, leftTran.position.y);
 
-    Instantiate(itemPrefab, spawnPos, Quaternion.identity); //Vector3.zero means center
+        int index = Random.Range(0, itemPrefab.Length);
+        //Instantiate(itemPrefab, spawnPos, Quaternion.identity); //Vector3.zero means center
+        Instantiate(itemPrefab[index], spawnPos, Quaternion.identity); //Vector3.zero means center
     }
+
+    public void IncrementScore(int value)
+    {
+        score += value;
+        Debug.Log(value);
+    }
+
+
 }

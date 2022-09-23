@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+
+    public GameManager gm;
     public float speed = 5; // declaring variable and initializing as 5 // not putting anyything will default to 0
     //public float health = 10;
     //public Transform otherObject;    // Start is called before the first frame update
@@ -39,4 +41,30 @@ public class PlayerControl : MonoBehaviour
          //transform.position = new Vector3(0,0,0);
 
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    Debug.Log("Collided");
+    //}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Coin")
+        {
+            Debug.Log("hit");
+            gm.IncrementScore(1);
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "Hazard")
+        {
+            Destroy(gameObject);
+        }
+
+        //Destroy(collision.gameObject); Destroy Items
+        //    Destroy(gameObject); //Destroy Player
+        //    Debug.Log(collision.gameObject);
+        //    Debug.Log("Triggered");
+    }
+
 }
