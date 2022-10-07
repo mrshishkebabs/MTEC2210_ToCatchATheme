@@ -12,8 +12,12 @@ public class GameManager : MonoBehaviour
 
     public TextMeshPro scoreText;
 
+    private AudioSource audioSource;
+    
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
 
         InvokeRepeating("SpawnItem",0,2); //how long to wait, how long it happen afterwards
 
@@ -40,6 +44,11 @@ public class GameManager : MonoBehaviour
     {
         score += value;
         Debug.Log(value);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 
 

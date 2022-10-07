@@ -5,10 +5,16 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
 
+    public AudioClip coinClip;
+    public AudioClip hazardClip;
+    //public AudioClip audioSource;
+
     public GameManager gm;
     public float speed = 5; // declaring variable and initializing as 5 // not putting anyything will default to 0
     //public float health = 10;
     //public Transform otherObject;    // Start is called before the first frame update
+    
+    
     void Start()
     {
         //speed = 5; // initializing
@@ -53,14 +59,24 @@ public class PlayerControl : MonoBehaviour
         {
             Debug.Log("hit");
             gm.IncrementScore(1);
+
+            gm.PlaySound(coinClip);
             Destroy(collision.gameObject);
+
         }
 
         if (collision.gameObject.tag == "Hazard")
         {
+            gm.PlaySound(hazardClip);
             Destroy(gameObject);
         }
 
+        if (collision.gameObject.tag == "Theme")
+        {
+            Debug.Log("Changed Theme");
+            Destroy(collision.gameObject);
+
+        }
         //Destroy(collision.gameObject); Destroy Items
         //    Destroy(gameObject); //Destroy Player
         //    Debug.Log(collision.gameObject);
